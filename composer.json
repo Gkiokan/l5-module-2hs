@@ -1,0 +1,15 @@
+{
+    "name": "gkiokan/secondhandshop",
+    "description": "",
+    "authors": [
+        {
+            "name": "Gkiokan Sali",
+            "email": "gkiokan@hotmail.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Gkiokan\\SecondHandShop\\": ""
+        }
+    }
+}

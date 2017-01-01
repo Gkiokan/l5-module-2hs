@@ -1,0 +1,15 @@
+{
+    "name": "SecondHandShop",
+    "alias": "secondhandshop",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Gkiokan\\SecondHandShop\\Providers\\SecondHandShopServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}

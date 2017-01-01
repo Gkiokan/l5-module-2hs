@@ -1,0 +1,34 @@
+<?php
+
+namespace Gkiokan\SecondHandShop\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class CustomerRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'company_id' => 'required',
+            'kdnr'       => 'min:3|required',
+            'mobil'      => 'alpha_num|required',
+            'tel'        => 'alpha_num',
+            'email'      => 'email'
+        ];
+    }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+}
