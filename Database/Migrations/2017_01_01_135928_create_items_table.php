@@ -25,6 +25,7 @@ class CreateItemsTable extends Migration
             $table->string('image')->nullable()->default(null);
             $table->decimal('price', 16, 2)->default(0.00);
 
+            $table->integer('limit')->unsigned()->default(0);
             $table->timestamp('sold_at')->nullable()->default(null);
             $table->timestamp('expires_at')->nullable()->default(null);
             $table->integer('resell')->default(0);

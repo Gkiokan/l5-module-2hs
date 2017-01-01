@@ -4,7 +4,7 @@ namespace Gkiokan\SecondHandShop;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Items extends Model
+class Item extends Model
 {
     protected $table = '2hs_items';
 
@@ -17,8 +17,7 @@ class Items extends Model
     ];
 
     protected $fillable = [
-        'item_nr', 'name', 'description', 'content', 'image', 'price',
-        'sold_at', 'expires_at', 'resell'
+        'item_nr', 'name', 'description', 'content', 'image', 'price', 'limit'      
     ];
 
     public function user(){

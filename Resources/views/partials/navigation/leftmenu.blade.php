@@ -31,9 +31,9 @@
                <span class="glyphicon glyphicon-menu-right"></span> Alle Waren
             </a>
 
-            <a href="{{ route('secondhandshop.item.index') }}"
-               class="dropdown-header {{ Menu::is('secondhandshop.item.index') ? 'active' : '' }} list-group-item">
-               <span class="glyphicon glyphicon-menu-right"></span> Alle Waren
+            <a href="{{ route('secondhandshop.item.create') }}"
+               class="dropdown-header {{ Menu::is('secondhandshop.item.create') ? 'active' : '' }} list-group-item">
+               <span class="glyphicon glyphicon-menu-right"></span> Neue Ware erstellen
             </a>
 
             <a class="{{ Menu::is('secondhandshop.index') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.index') }}"> Alle Quittungen </a>
