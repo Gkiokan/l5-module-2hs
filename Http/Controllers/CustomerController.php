@@ -26,7 +26,7 @@ class CustomerController extends Controller
         $customer = Customer::where('kdnr', $kdnr)->first();
 
         if(!$customer) return back();
-        
+
         return redirect()->route('secondhandshop.customer.edit', ['customr' => $customer->id]);
         return view('secondhandshop::pages.customer.search', compact(['customer', 'kdnr']));
     }
