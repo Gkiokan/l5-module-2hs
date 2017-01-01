@@ -14,6 +14,24 @@ use Gkiokan\SecondHandShop\Http\Requests\CustomerRequest;
 
 class CustomerController extends Controller
 {
+
+    public function search(){
+        $customer = null;
+        $kdnr     = null;
+        return view('secondhandshop::pages.customer.search', compact(['customer', 'kdnr']));
+    }
+
+    public function search_by_kdnr(Request $request){
+        $kdnr     = $request->kdnr;
+        $customer = Customer::where('kdnr', $kdnr)->first();
+
+        if(!$customer) return back();
+        
+        return redirect()->route('secondhandshop.customer.edit', ['customr' => $customer->id]);
+        return view('secondhandshop::pages.customer.search', compact(['customer', 'kdnr']));
+    }
+
+
     /**
      * Display a listing of the resource.
      * @return Response

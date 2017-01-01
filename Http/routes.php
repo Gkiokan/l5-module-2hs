@@ -7,6 +7,15 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'secondhandshop', 'na
       'as'    => 'secondhandshop.index'
     ]);
 
+    Route::get('customer.search', [
+      'uses'  => 'CustomerController@search',
+      'as'    => 'secondhandshop.customer.search'
+    ]);
+
+    Route::post('customer.search', [
+      'uses'  => 'CustomerController@search_by_kdnr',
+      'as'    => 'secondhandshop.customer.searchresult'
+    ]);
 
     Route::get('customer.list', [
       'uses'  => 'CustomerController@index',
