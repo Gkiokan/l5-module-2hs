@@ -19,6 +19,7 @@
         <input name='description' placeholder="Kurzbeschreibung"> <br>
         <input name='price' placeholder="Preis (EURO.CENTS)"><br>
         <input name='limit' placeholder="Wochen limit 1-8"> <br>
+        <input name='image' placeholder="Uploaded image link" class='disabled'><br>
         <br>
         <button type='submit' class='btn btn-success'> Erstelle Ware </button>
         {{ csrf_field() }}

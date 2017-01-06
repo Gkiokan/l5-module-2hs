@@ -17,7 +17,7 @@
           <th style='width:30px'> Gesamt Waren </th>
           <th style='width:30px'> Verkaufte Waren </th>
           <th style='width:30px'> Aktuelle Waren </th>
-          <th width=100px class='text-right'> Options </th>
+          <th width=120px class='text-right'> Options </th>
       </tr>
       </thead>
       <tbody>
