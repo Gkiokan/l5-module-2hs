@@ -1,7 +1,7 @@
 @extends('company::layouts.master')
 
 @section('content')
-    <h1>Update Customer <small></small></h1>
+    <h1> Kunde bearbeiten <small></small></h1>
     <div class='space_50'></div>
 
     <form action="{{ route('secondhandshop.customer.update', ['customer' => $customer->id]) }}" method="POST" class='form-horizontal'>
@@ -138,10 +138,10 @@
         {{-- END 2nd row --}}
         <div class='space_50'></div>
 
-        <h3 class='hidden'> Waren Statistik </h3><hr>
+        <h3 class=''> Waren Statistik </h3><hr>
         {{-- 3rd row --}}
         {{-- Item Statistik --}}
-        <div class='row hidden'>
+        <div class='row'>
         <div class='col-xs-12 col-sm-5'>
 
             <div class='panel panel-default'>
@@ -156,26 +156,26 @@
                 <tbody>
                   <tr>
                       <td> Gesamt gebrachte Waren </td>
-                      <td> 200 </td>
+                      <td> {{ $customer->all_items() }} </td>
                   </tr>
                   <tr>
                       <td> Verkaufte Waren </td>
-                      <td> 170 </td>
+                      <td> {{ $customer->sold_items() }} </td>
                   </tr>
                   <tr>
-                      <td> aktuell zu verkaufende Waren </td>
-                      <td> 23 </td>
+                      <td> Aktuell zu verkaufende Waren </td>
+                      <td> {{ $customer->open_items() }} </td>
                   </tr>
                   <tr>
-                      <td> verbliebene Waren </td>
-                      <td> 7 </td>
+                      <td> Überfällige Waren </td>
+                      <td> {{ $customer->expired_items() }} </td>
                   </tr>
                 </tbody>
             </table>
             </div>
         </div>
         <div class='col-xs-12 col-sm-5'>
-            a b c
+
         </div>
         </div>
         {{-- end 3rd row --}}

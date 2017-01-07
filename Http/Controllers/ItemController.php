@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Gkiokan\SecondHandShop\Http\Requests\ItemRequest;
+
 use Auth;
 use Gkiokan\SecondHandShop\Item;
 use Gkiokan\SecondHandShop\Customer;
@@ -24,16 +26,18 @@ class ItemController extends Controller
      */
     public function index($type=null)
     {
+        $user = Auth::user();
+
         if($type=='sold'):
-          $items = Item::sold();
+          $items = Item::sold()->get();
           $title = "Verkaufte Waren";
 
         elseif($type=='open'):
-          $items = Item::open();
+          $items = Item::open()->get();
           $title = "Aktuell zu verkaufende Waren";
 
         elseif($type=='expired'):
-          $items = Item::expired();
+          $items = Item::expired()->get();
           $title = "Überfällige Ware";
 
         else:
@@ -77,12 +81,14 @@ class ItemController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
         $item = new Item($request->all());
+
         $item->customer_id = $request->customer_id;
         $item->user_id     = Auth::user()->id;
-        $item->expires_at  = Carbon::now()->addWeeks($request->limit);
+
+        $item->auto_detect_expire_time($request);
         $item->save();
 
         session()->flash('message.content', "Ware $request->name wurde erstellt");
@@ -106,9 +112,11 @@ class ItemController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request, Item $item)
+    public function update(ItemRequest $request, Item $item)
     {
         $item->update($request->all());
+        $item->auto_detect_expire_time($request);
+        $item->save();
 
         session()->flash('message.content', "Ware $request->name wurde aktualisiert");
         session()->flash('message.type', 'success');

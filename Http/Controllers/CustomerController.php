@@ -38,7 +38,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $c = Customer::byUserID(Auth::user()->id)->get();
+        $c = Customer::byUserID(Auth::user()->id)->orderBy('firstname', 'asc')->get();
 
         return view('secondhandshop::pages.customer.index', [ 'customers' => $c ]);
     }

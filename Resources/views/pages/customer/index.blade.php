@@ -16,7 +16,8 @@
           <th> Name Vorname </th>
           <th style='width:30px'> Gesamt Waren </th>
           <th style='width:30px'> Verkaufte Waren </th>
-          <th style='width:30px'> Aktuelle Waren </th>
+          <th style='width:30px'> ImVerkauf Waren </th>
+          <th style='width:30px'> Überfällige Waren </th>
           <th width=120px class='text-right'> Options </th>
       </tr>
       </thead>
@@ -29,9 +30,10 @@
       <tr>
           <td> {{ $customer->kdnr }} </td>
           <td> {{ $customer->firstname . ' ' . $customer->lastname }}  {{ $customer->id }}</td>
-          <td> (G) </td>
-          <td> (V) </td>
-          <td> (A) </td>
+          <td> {{ $customer->all_items() }} </td>
+          <td> {{ $customer->sold_items() }} </td>
+          <td> {{ $customer->open_items() }} </td>
+          <td> {{ $customer->expired_items() }} </td>
           <td>
               <div class='pull-right'>
                 <a href="{{ route('secondhandshop.customer.delete', ['id' => $customer->id]) }}" class='btn btn-danger btn-xs'> <span class='glyphicon glyphicon-trash'></span> </a>

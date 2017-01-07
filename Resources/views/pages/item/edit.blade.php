@@ -127,6 +127,39 @@
     {{-- end 3rd row --}}
 
 
+    {{-- 4th row --}}
+    <div class='row'>
+        <div class='col-xs-4'>
+            {{-- Resold --}}
+            <div class="form-group">
+                <label class="control-label col-sm-6" for="created_at"> Erstellt </label>
+                <div class='col-sm-6'>
+                    <p data-type='text' id='created_at' class='form-control-static' data-name='created_at' data-value=''>{{ $item->created_at->format('d.m.Y (H:i)') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class='col-xs-4'>
+            {{-- Expires Limit  --}}
+            <div class="form-group">
+                <label class="control-label col-sm-6" for="updated_at"> Aktualisiert </label>
+                <div class='col-sm-6'>
+                    <p data-type='text' id='updated_at' class='form-control-static' data-name='updated_at' data-value=''>{{ $item->updated_at->format('d.m.Y (H:i)') }}</p>
+                </div>
+            </div>
+        </div>
+        <div class='col-xs-4'>
+            {{-- Expires Limit  --}}
+            <div class="form-group">
+                <label class="control-label col-sm-6" for="sold_at"> Verkauft </label>
+                <div class='col-sm-6'>
+                    <p data-type='text' id='sold_at' class='form-control-static' data-name='sold_at' data-value=''>{{ ($item->sold_at) ? $item->sold_at->format('d.m.Y') : 'nicht verkauft' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end 4th row --}}
+
+
     <div class='row'>
     <div class='col-xs-12 col-sm-10 col-sm-offset-2'>
         <div class='space_50'></div>

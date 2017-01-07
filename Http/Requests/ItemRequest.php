@@ -4,7 +4,7 @@ namespace Gkiokan\SecondHandShop\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ItemsRequest extends FormRequest
+class ItemRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,9 @@ class ItemsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'        => 'required|min:3',
+            'description' => 'required|min:5',
+            'price'       => 'required'
         ];
     }
 

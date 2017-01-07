@@ -2,6 +2,7 @@
 
 @section('content')
     <h1> {{ $title }} <small></small></h1>
+    <hr>
     <div class='space_50'></div>
 
     <div class='panel panel-default'>
@@ -11,7 +12,7 @@
             <tr>
                 <th style='width:50px' class='text-center'> # </th>
                 <th> Bezeichnung </th>
-                <th style='width:80px'> Preis </th>
+                <th style='width:80px' class='text-right'> Preis </th>
                 <th> Kunde </th>
                 <th> Limit </th>
                 <th style='width:165px' class='text-right'> Option </th>
@@ -31,7 +32,7 @@
                     <div class='title'>{{ $item->name }} {{ $item->item_nr }}</div>
                     <div class='desc'> <small> {{ $item->description }} </small> </div>
                 </td>
-                <td> <div class='price'> {{ $item->price }} € </div> </td>
+                <td> <div class='price text-right'> {{ $item->price }} € </div> </td>
                 <td> <div class='user'> {{ $item->customer->firstname . ' ' . $item->customer->lastname}}</div> </td>
                 <td> <div class='expires'>
                   {{ $item->expires_at->format('d.m.Y') }}  <br>
