@@ -1,4 +1,7 @@
 <?php
+/*
+    Item Routs
+*/
 
 Route::get('items', [
   'uses'  => 'ItemController@index',

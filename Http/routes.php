@@ -4,5 +4,5 @@ Route::group(['middleware' => ['web', 'auth'], 'prefix' => 'secondhandshop', 'na
 {
     include_once __DIR__ . '/Routes/customer.php';
     include_once __DIR__ . '/Routes/items.php';
-
+    include_once __DIR__ . '/Routes/bill.php';
 });

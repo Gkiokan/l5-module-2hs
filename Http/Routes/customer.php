@@ -1,5 +1,7 @@
 <?php
-
+/*
+    Customer Routes
+*/
 
 Route::get('/', [
   'uses'  => 'SecondHandShopController@index',
