@@ -1,7 +1,7 @@
 @extends('company::layouts.master')
 
 @section('content')
-    <h1> Ware bearbeiten <small></small></h1>
+    <h1> Ware erstellen <small></small></h1>
     <div class='space_50'></div>
 
     <form action="{{ route('secondhandshop.item.store') }}" method='POST' class='form-horizontal'>
@@ -24,7 +24,10 @@
             </div>
         </div>
         <div class='col-xs-6'>
-
+            @if($bill)
+              {{ $bill->nr }} {{ $bill->type }}
+              <input type='hidden' name='bill_id' value='{{ $bill->id }}'>
+            @endif
         </div>
     </div>
     {{-- end puh --}}
@@ -135,7 +138,7 @@
         <button type='submit' class='btn btn-info'>  Ware erstellen </button>
     </div>
     </div>
-    {{ csrf_field() }}    
+    {{ csrf_field() }}
     </form>
 
     <div class='space_200'></div>

@@ -24,12 +24,12 @@ Route::get('items/expired', [
 ]);
 
 
-Route::get('items/create', [
+Route::get('items/create/{bill?}', [
   'uses'  => 'ItemController@create',
   'as'    => 'secondhandshop.item.create'
 ]);
 
-Route::post('items/store', [
+Route::post('items/store/', [
   'uses'  => 'ItemController@store',
   'as'    => 'secondhandshop.item.store'
 ]);

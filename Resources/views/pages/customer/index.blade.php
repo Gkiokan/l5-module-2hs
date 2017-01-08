@@ -23,7 +23,7 @@
       </thead>
       <tbody>
       @if(count($customers) == 0)
-        <tr><td colspan=6 class='text-center info'> <br> Kein Kundenstamm vorhanden <br><br></td></tr>
+        <tr><td colspan=7 class='text-center info'> <br> Kein Kundenstamm vorhanden <br><br></td></tr>
       @endif
 
       @foreach( $customers as $customer)

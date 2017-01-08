@@ -56,8 +56,24 @@
                <span class="glyphicon glyphicon-menu-right"></span> Überfällige Waren
             </a>
 
-            <a class="{{ Menu::is('secondhandshop.index') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.index') }}"> Alle Quittungen </a>
-            <a class="{{ Menu::is('secondhandshop.index') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.index') }}"> Alle Kommissionen </a>
+
+            {{-- Receipts --}}
+            <a class="{{ Menu::is('secondhandshop.index-') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.receipt.index') }}"> Alle Quittungen </a>
+
+
+            {{-- Commissions --}}
+            <a class="{{ Menu::is('secondhandshop.index-') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.commission.index') }}"> Alle Kommissionen </a>
+
+            <a href="{{ route('secondhandshop.commission.create') }}"
+               class="dropdown-header {{ Menu::is('secondhandshop.commission.create') ? 'active' : '' }} list-group-item">
+               <span class="glyphicon glyphicon-menu-right"></span> Neue Kommission erstellen
+            </a>
+
+            <a href="{{ route('secondhandshop.commission.index') }}"
+               class="dropdown-header {{ Menu::is('secondhandshop.commission.index') ? 'active' : '' }} list-group-item">
+               <span class="glyphicon glyphicon-menu-right"></span> Alle Kommissionen
+            </a>
+
         </div>
     </div>
 </div>

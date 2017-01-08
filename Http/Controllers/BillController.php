@@ -8,55 +8,41 @@ use Illuminate\Routing\Controller;
 
 class BillController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
+
     public function index()
     {
-        return view('secondhandshop::index');
+        return view('secondhandshop::pages.bill.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+
     public function create()
     {
-        return view('secondhandshop::create');
+        return view('secondhandshop::pages.bill.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
+
     public function store(Request $request)
     {
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
+
     public function edit()
     {
-        return view('secondhandshop::edit');
+        return view('secondhandshop::pages.bill.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
+
     public function update(Request $request)
     {
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
+
+    public function delete()
+    {
+        return view('secondhandshop::pages.bill.delete');
+    }
+
+
     public function destroy()
     {
     }

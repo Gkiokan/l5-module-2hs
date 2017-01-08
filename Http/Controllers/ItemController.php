@@ -11,6 +11,7 @@ use Gkiokan\SecondHandShop\Http\Requests\ItemRequest;
 use Auth;
 use Gkiokan\SecondHandShop\Item;
 use Gkiokan\SecondHandShop\Customer;
+use Gkiokan\SecondHandShop\Commission;
 use Carbon\Carbon;
 
 class ItemController extends Controller
@@ -29,19 +30,19 @@ class ItemController extends Controller
         $user = Auth::user();
 
         if($type=='sold'):
-          $items = Item::sold()->get();
+          $items = Item::sold($user->id)->get();
           $title = "Verkaufte Waren";
 
         elseif($type=='open'):
-          $items = Item::open()->get();
+          $items = Item::open($user->id)->get();
           $title = "Aktuell zu verkaufende Waren";
 
         elseif($type=='expired'):
-          $items = Item::expired()->get();
+          $items = Item::expired($user->id)->get();
           $title = "Überfällige Ware";
 
         else:
-          $items = Item::all();
+          $items = Item::AllUserItems($user->id)->get();
           $title = "Alle Waren";
 
         endif;
@@ -69,11 +70,11 @@ class ItemController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(Commission $bill=null)
     {
         $customers = Customer::byUserID(Auth::user()->id)->get();
 
-        return view('secondhandshop::pages.item.create', compact(['customers']));
+        return view('secondhandshop::pages.item.create', compact(['customers', 'bill']));
     }
 
     /**
@@ -93,6 +94,12 @@ class ItemController extends Controller
 
         session()->flash('message.content', "Ware $request->name wurde erstellt");
         session()->flash('message.type', 'success');
+
+        if($bill = Commission::find($request->bill_id)):
+            $item->commission()->save($bill);
+            session()->flash('message.content', "Ware $request->name wurde erstellt und der Kommission hinzugefügt");
+            return redirect()->route('secondhandshop.commission.show', $bill->id);
+        endif;
 
         return redirect()->route('secondhandshop.item.index');
     }

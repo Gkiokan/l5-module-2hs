@@ -4,6 +4,7 @@ namespace Gkiokan\SecondHandShop;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Auth;
 
 class Item extends Model
 {
@@ -31,21 +32,46 @@ class Item extends Model
         return $this->belongsTo('Gkiokan\SecondHandShop\Customer');
     }
 
+    public function commission(){
+        return $this->belongsToMany('Gkiokan\SecondHandShop\Commission', '2hs_bill_items', 'item_id', 'bill_id');
+    }
+
+    // Avaible Items on the commission
+    public function scopeAvaibleItems($iib=null){
+        return self::whereDoesntHave('commission', function($q) use ($iib){
+               $q->whereNotIn('item_id', $iib);
+        });
+    }
+
+    // All User Items
+    public function scopeAllUserItems($q, $user_id){
+        return $q->where('user_id', $user_id);
+    }
+
+    // Not sold items
+    public function scopeNotSold($q, $user_id){
+        return $q->where('sold_at', null)
+                 ->where('user_id', $user_id);
+    }
+
     // List all sold Items
-    public static function sold(){
-        return self::where('sold_at', '!=', null);
+    public function scopeSold($q, $user_id){
+        return $q->where('sold_at', '!=', null)
+                 ->where('user_id', $user_id);
     }
 
     // List all avaible Items (to sell)
-    public static function open(){
-        return self::where('expires_at', '>', Carbon::now())
-                   ->where('sold_at', null);
+    public function scopeOpen($q, $user_id){
+        return $q->where('expires_at', '>', Carbon::now())
+                   ->where('sold_at', null)
+                   ->where('user_id', $user_id);
     }
 
     // List all Items which are over the limit
-    public static function expired(){
-        return self::where('expires_at', '<', Carbon::now())
-                   ->where('sold_at', null);
+    public function scopeExpired($q, $user_id){
+        return $q->where('expires_at', '<', Carbon::now())
+                  ->where('sold_at', null)
+                  ->where('user_id', $user_id);
     }
 
 
