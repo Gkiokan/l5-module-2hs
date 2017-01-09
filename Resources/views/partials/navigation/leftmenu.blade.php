@@ -60,6 +60,15 @@
             {{-- Receipts --}}
             <a class="{{ Menu::is('secondhandshop.index-') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.receipt.index') }}"> Alle Quittungen </a>
 
+            <a href="{{ route('secondhandshop.receipt.create') }}"
+               class="dropdown-header {{ Menu::is('secondhandshop.receipt.create') ? 'active' : '' }} list-group-item">
+               <span class="glyphicon glyphicon-menu-right"></span> Neue Quittung erstellen
+            </a>
+
+            <a href="{{ route('secondhandshop.receipt.index') }}"
+               class="dropdown-header {{ Menu::is('secondhandshop.receipt.index') ? 'active' : '' }} list-group-item">
+               <span class="glyphicon glyphicon-menu-right"></span> Alle Quittungen
+            </a>
 
             {{-- Commissions --}}
             <a class="{{ Menu::is('secondhandshop.index-') ? 'active' : '' }} list-group-item" href="{{ route('secondhandshop.commission.index') }}"> Alle Kommissionen </a>

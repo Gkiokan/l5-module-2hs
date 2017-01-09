@@ -33,6 +33,7 @@ class Commission extends Model
     public function scopeBills($q){
         return $q->where('user_id', Auth::user()->id)
                  ->where('type', 'commission')
+                 ->orderBy('id', 'desc')
                  ->get();
     }
 }

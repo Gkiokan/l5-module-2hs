@@ -6,58 +6,100 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
+use Gkiokan\SecondHandShop\Receipt;
+use Gkiokan\SecondHandShop\Item;
+use Auth;
+use Carbon\Carbon;
+
 class ReceiptController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
     public function index()
     {
-        return view('secondhandshop::index');
+        $bills = Receipt::Bills();
+        return view('secondhandshop::pages.receipt.index', compact(['bills']));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+
+    public function show(Receipt $receipt)
+    {
+        $items_in_bill = $receipt->items()->get();
+        $items   = Item::NotSold(Auth::user()->id)->get();
+        return view('secondhandshop::pages.receipt.show', compact('receipt', 'items_in_bill', 'items'));
+    }
+
+
+    public function addItem(Receipt $receipt, Request $request)
+    {
+        $item = Item::findorfail($request->item);
+
+        if(!$item):
+            session()->flash('message.content', "Item not found");
+            session()->flash('message.type', 'warning');
+            return back();
+        endif;
+
+        if($receipt->items->contains($item->id)):
+            session()->flash('message.content', "Item $item->name already exists in the receipt");
+            session()->flash('message.type', 'warning');
+            return back();
+        endif;
+
+        $receipt->items()->save($item, ['item_id' => $item->id, 'bill_id' => $receipt->id]);
+        $receipt->status = 1;
+        $receipt->save();
+
+        $item->sold_at = Carbon::now();
+        $item->save();
+
+        session()->flash('message.content', "Item $item->name wurde hinzugefügt.");
+        session()->flash('message.type', 'success');
+
+        return redirect()->route('secondhandshop.receipt.show', $receipt->id);
+    }
+
+
     public function create()
     {
-        return view('secondhandshop::create');
+        $bill = Receipt::LastOpenReceipt();
+        return redirect()->route('secondhandshop.receipt.show', $bill->id);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
+
     public function store(Request $request)
     {
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
+
     public function edit()
     {
         return view('secondhandshop::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
+
     public function update(Request $request)
     {
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
+
+    public function destroy(Receipt $receipt, Request $request)
     {
+        $item = Item::find($request->item_id);
+
+        if($item):
+            $receipt->items()->detach($item);
+            $item->sold_at = null;
+            $item->save();
+
+            session()->flash('message.content', "Item $item->name wurde ausgetragen.");
+            session()->flash('message.type', 'success');
+
+            if($receipt->items()->count() == 0):
+                $receipt->delete();
+                session()->flash('message.content', "Quittung wurde gelöscht, weil keine Artikel mehr vorhanden waren.");
+                return redirect()->route('secondhandshop.receipt.index');
+            endif;
+        endif;
+
+        return back();
     }
 }

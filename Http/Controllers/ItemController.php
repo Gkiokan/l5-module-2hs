@@ -53,7 +53,10 @@ class ItemController extends Controller
 
     // Shortcut functions
     public function sold(){
-        return $this->index('sold');
+        // return $this->index('sold');
+        $items = Item::sold(Auth::user()->id)->get();
+        $title = "Verkaufte Waren";
+        return view('secondhandshop::pages.item.sold', compact(['items', 'title']));
     }
 
     public function open(){

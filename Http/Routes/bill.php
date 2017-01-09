@@ -16,4 +16,9 @@ Route::group([
         'as'   => 'commission.additem'
     ]);
 
+    Route::post('/receipt/{receipt}/add.item', [
+        'uses' => 'ReceiptController@addItem',
+        'as'   => 'receipt.additem'
+    ]);
+
 });

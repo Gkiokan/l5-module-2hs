@@ -29,9 +29,7 @@ class CommissionController extends Controller
       public function show(Commission $commission)
       {
           $items_in_bill = $commission->items()->get();
-          $items   = Item::AllUserItems(Auth::user()->id)->get();
-
-          // dd($items);
+          $items   = Item::NotSold(Auth::user()->id)->get();
 
           return view('secondhandshop::pages.bill.show', compact(['items', 'commission', 'items_in_bill']));
       }
@@ -93,7 +91,25 @@ class CommissionController extends Controller
       }
 
 
-      public function destroy()
+      public function destroy(Commission $commission, Request $request)
       {
+          $item = Item::find($request->item_id);
+
+          if($item):
+              $commission->items()->detach($item);
+              $item->sold_at = null;
+              $item->save();
+
+              session()->flash('message.content', "Item $item->name wurde ausgetragen.");
+              session()->flash('message.type', 'success');
+
+              if($commission->items()->count() == 0):
+                  $commission->delete();
+                  session()->flash('message.content', "Kommission wurde gelöscht, weil keine Artikel mehr vorhanden waren.");
+                  return redirect()->route('secondhandshop.commission.index');
+              endif;
+          endif;
+
+          return back();
       }
 }

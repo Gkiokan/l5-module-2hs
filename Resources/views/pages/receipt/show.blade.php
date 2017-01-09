@@ -1,20 +1,20 @@
 @extends('company::layouts.master')
 
 @section('content')
-    <h1> Kommissions Information  <small></small></h1>
+    <h1> Quittungs Information  <small></small></h1>
     <hr>
 
-    <form action="{{ route('secondhandshop.commission.store') }}" method='post'>
+    <form action="{{ route('secondhandshop.receipt.store') }}" method='post'>
         <div class='panel panel-default'>
-        <div class='panel-heading'> {{ $commission->nr }}  </div>
+        <div class='panel-heading'> {{ $receipt->nr }}  </div>
         <div class='panel-body'>
-        Erstellt am: {{ $commission->created_at->format('d.m.Y H:i') }} <br>
-        Zuletzt bearbeitet: {{ $commission->updated_at->format('d.m.Y H:i') }} <br>
+        Erstellt am: {{ $receipt->created_at->format('d.m.Y H:i') }} <br>
+        Zuletzt bearbeitet: {{ $receipt->updated_at->format('d.m.Y H:i') }} <br>
         <br>
-        pay date : {{ $commission->pay_date }}  <br>
-        paid at : {{ $commission->paid_at }}  <br>
+        pay date : {{ $receipt->pay_date }}  <br>
+        paid at : {{ $receipt->paid_at }}  <br>
         <br>
-
+        Status : {{ $receipt->status }} <br>
         <button type='submit' class='btn btn-success'> Speichere </button>
 
         </div>
@@ -28,13 +28,13 @@
             Items <small>({{ $items_in_bill->count() }})</small>
         </div>
 
-        <div class='panel-body'>
-          <a href="{{ route('secondhandshop.item.create', $commission->id) }}" class='btn btn-success btn-sm xpull-right'> Neuen Artikel hinzufügen </a>
+        <div class='panel-body hidden'>
+          <a href="{{ route('secondhandshop.item.create', $receipt->id) }}" class='btn btn-success btn-sm xpull-right'> Neuen Artikel hinzufügen </a>
           <a href='javascript:void(0)' onClick='toggle_existing_item_add_field()' class='btn btn-warning btn-sm xpull-right'> Vorhandenen Artikel hinzufügen </a>
         </div>
 
-        <form action="{{ route('secondhandshop.commission.additem', $commission->id) }}" method='post'>
-        <table class='table add_existing_item ' style='border:0px !important; display:none'>
+        <form action="{{ route('secondhandshop.receipt.additem', $receipt->id) }}" method='post'>
+        <table class='table add_existing_item' style='border:0px !important'>
               <tr class='info'>
                   <td>
                       <select name='item' class='form-control'>
@@ -81,12 +81,12 @@
                     </td>
                     <td class='text-right'> {{ $item->price }} € </td>
                     <td class='text-right'>
-                      <form action="{{ route('secondhandshop.commission.destroy', $commission->id) }}" method='post'>
-                          <button type='submit' class='btn btn-danger'> - </button>
-                          <input type='hidden' name='item_id' value="{{ $item->id }}">
-                          {{ csrf_field() }}
-                          {{ method_field('delete') }}
-                      </form>
+                        <form action="{{ route('secondhandshop.receipt.destroy', $receipt->id) }}" method='post'>
+                            <button type='submit' class='btn btn-danger'> - </button>
+                            <input type='hidden' name='item_id' value="{{ $item->id }}">
+                            {{ csrf_field() }}
+                            {{ method_field('delete') }}
+                        </form>
                     </td>
                 </tr>
                 @php
